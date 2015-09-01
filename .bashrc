@@ -1,0 +1,1 @@
+export NODE_PATH=$NODE_PATH:/home/ubuntu/.nvm/versions/node/v0.12.7/lib/node_modules
