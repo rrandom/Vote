@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('workspaceApp')
+angular.module('voteAppApp')
   .controller('LoginCtrl', function ($scope, Auth, $location) {
     $scope.user = {};
     $scope.errors = {};

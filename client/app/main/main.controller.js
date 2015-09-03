@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('workspaceApp')
+angular.module('voteAppApp')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.awesomeThings = [];
 

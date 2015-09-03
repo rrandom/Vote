@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('workspaceApp')
+angular.module('voteAppApp')
   .controller('AdminCtrl', function ($scope, $http, Auth, User) {
 
     // Use the User $resource to fetch all users

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('workspaceApp')
+angular.module('voteAppApp')
   .factory('Modal', function ($rootScope, $modal) {
     /**
      * Opens a modal
