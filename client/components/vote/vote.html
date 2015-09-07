@@ -1,0 +1,19 @@
+<div ng-show="page==='vote'" class=vote>
+  <div class=col-lg-4>
+    <h1>{{pollName}}?</h1>
+    <p class=lead>by {{pollCreator}}</p>
+  </div>
+  <div class=col-lg-4>
+    <form ng-submit=addVote()>
+      <ul class=list-group>
+        <li class=list-group-item ng-repeat="option in pollOptions track by $index">
+          <input type=radio name=option value="{{$index}}"> {{option}}</li>
+      </ul>
+      <br>
+      <button class="btn btn-lg btn-success vote" type=submit>Vote!</button>
+    </form>
+  </div>
+  <div class=col-lg-4>
+    <p id=comments>Sorry, no comments yet.</p>
+  </div>
+</div>
