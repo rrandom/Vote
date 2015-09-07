@@ -12,8 +12,8 @@ angular.module('voteAppApp')
     $scope.pollResults = [];
     $scope.currentUser = Auth.getCurrentUser().name;
 
-    $scope.loadPoll = function (c, d, e) {
-      $http.get("/api/polls/" + c + "/" + d).success(function (b, c) {
+    $scope.loadPoll = function (userName, pollName, e) {
+      $http.get("/api/polls/" + userName + "/" + pollName).success(function (b, c) {
         if (b[0]) {
           console.log(b[0].poll_results);
           console.log(b[0].poll_options);
@@ -82,6 +82,8 @@ angular.module('voteAppApp')
     $scope.loadAllPolls = function () {
       $http.get("api/polls/" + Auth.getCurrentUser().name)
         .success(function (data) {
+          // comment
+          console.log('polls:', data);
           $scope.polls = data;
           $(".results").css("display", "none");
           $scope.page = "allPolls";
@@ -100,8 +102,8 @@ angular.module('voteAppApp')
       $scope.placeholders.push("New Option");
     };
 
-    $scope.makeArr = function (a) {
-      for (var data = [], c = 0; a > c; c++) {
+    $scope.makeArr = function (length) {
+      for (var data = [], c = 0; c < length; c++) {
         data.push(0);
       }
       return data;
