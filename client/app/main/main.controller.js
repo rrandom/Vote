@@ -27,11 +27,13 @@ angular.module('voteAppApp')
           $scope._id = b[0]._id;
         }
         $scope.page = e;
-        "results" === e && $(".results").css({
-          display: "block",
-          visibility: "visible",
-          backgroundColor: "pink"
-        });
+        if ("results" === e) {
+          $(".results").css({
+            display: "block",
+            visibility: "visible",
+            backgroundColor: "pink"
+          });
+        }
       }).error(function (a, b) {
         console.log(b)
       });
@@ -70,10 +72,10 @@ angular.module('voteAppApp')
     };
 
     $scope.addVote = function () {
-      var v = $("input[type = 'radio]:checked").val();
+      var optionNumber = $("input[type = radio]:checked").val();
       console.log("Submitting " + Auth.getCurrentUser().name + "'s vote for poll id: " + $scope._id);
-      v = Number(v);
-      $http.put("api/polls/" + $scope._id + "/" + v).success(function (data) {
+      optionNumber = Number(optionNumber);
+      $http.put("api/polls/" + $scope._id + "/" + optionNumber).success(function (data) {
         console.log("Vote submitted");
         $scope.loadPoll($scope.pollCreator, $scope.pollName, "results");
       });
@@ -82,8 +84,6 @@ angular.module('voteAppApp')
     $scope.loadAllPolls = function () {
       $http.get("api/polls/" + Auth.getCurrentUser().name)
         .success(function (data) {
-          // comment
-          console.log('polls:', data);
           $scope.polls = data;
           $(".results").css("display", "none");
           $scope.page = "allPolls";
@@ -108,5 +108,14 @@ angular.module('voteAppApp')
       }
       return data;
     };
+
+    if (/[^\/].*(?=\/)/.test($location.path())) {
+      $scope.page = "";
+      var path = $location.path(),
+        userName = path.match(/[^\/].*(?=\/)/),
+        pollName = path.match(/.\/.*(?=$)/);
+      pollName = pollName[0].substr(2, pollName[0].length);
+      $scope.loadPoll(pollName, pollName, "vote")
+    }
 
   });

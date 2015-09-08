@@ -9,7 +9,7 @@ router.get('/', controller.index);
 router.get('/:user', controller.showAll);
 router.get('/:user/:poll', controller.showOne);
 router.post('/', controller.create);
-router.put('/:id', controller.update);
+router.put('/:poll/:option', controller.update);
 router.patch('/:id', controller.update);
 router.delete('/:poll', controller.destroy);
 
