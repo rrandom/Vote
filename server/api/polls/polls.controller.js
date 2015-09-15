@@ -13,7 +13,7 @@ exports.index = function(req, res) {
 
 // Get a all polls of a user
 exports.showAll = function(req, res) {
-  Polls.find({_id: req.params.id}, function (err, polls) {
+  Polls.find({user_name: req.params.user}, function (err, polls) {
     if(err) { return handleError(res, err); }
     if(!polls) { return res.status(404).send('Not Found'); }
     return res.json(polls);
@@ -43,11 +43,12 @@ exports.update = function(req, res) {
   console.log("Called update ");
   console.log('req.params:', req.params);
   if(req.body._id) { delete req.body._id; }
-  Polls.findById(req.params.id, function (err, polls) {
+  Polls.findById(req.params.poll_id, function (err, polls) {
     if (err) { return handleError(res, err); }
     if(!polls) { return res.status(404).send('Not Found'); }
-    console.log('polls:', polls);
-    var updated = _.extend(polls, req.body);
+    var option = req.params.option;
+    polls.poll_results[option]= polls.poll_results[option] + 1;
+    var updated = _.extend(polls, {poll_results: polls.poll_results});
     updated.save(function (err) {
       if (err) { return handleError(res, err); }
       return res.status(200).json(polls);
